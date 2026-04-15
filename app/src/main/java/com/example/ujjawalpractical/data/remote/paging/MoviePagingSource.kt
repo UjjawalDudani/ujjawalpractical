@@ -17,7 +17,7 @@ class MoviePagingSource(
 
             val page = params.key ?: 1
 
-            val response = api.getPopularMovies(apiKey = ApiConstants.API_KEY, page = page)
+            val response = api.getPopularMovies(apiKey = "Bearer " + ApiConstants.API_KEY, page = page)
             Log.d("ujjawal", "load: "+response)
             val movies = response.results?.map { dto ->
                 dto.toDomain()

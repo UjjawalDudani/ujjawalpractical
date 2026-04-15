@@ -32,7 +32,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetail {
         return api.getMovieDetails(
-            apiKey = ApiConstants.API_KEY,
+            apiKey = "Bearer " + ApiConstants.API_KEY,
             movieId = movieId,
         ).toDomain()
     }
