@@ -6,7 +6,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ujjawalpractical.R
 import com.example.ujjawalpractical.databinding.ActivityHomeBinding
@@ -40,6 +42,15 @@ class HomeActivity : AppCompatActivity() {
 
         binding.rvMovies.layoutManager = LinearLayoutManager(this)
         binding.rvMovies.adapter = adapter
+
+        adapter.addLoadStateListener { loadState ->
+            val isLoading = loadState.source.refresh is LoadState.Loading
+            val isError = loadState.source.refresh is LoadState.Error
+
+            binding.progressBar.isVisible = isLoading
+            binding.tvError.isVisible = isError
+            binding.rvMovies.isVisible = !isLoading && !isError
+        }
     }
 
     private fun observeMovies() {
