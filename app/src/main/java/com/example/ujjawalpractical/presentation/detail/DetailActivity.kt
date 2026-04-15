@@ -77,7 +77,7 @@ class DetailActivity : AppCompatActivity() {
         binding.tvTitle.text = movie.title
         binding.tvOverview.text = movie.overview
         binding.tvRating.text = "Rating : ⭐ ${movie.rating}"
-        binding.tvRuntime.text = "${movie.runtime} min"
+        binding.tvRuntime.text = formatRuntime(movie.runtime)
         binding.tvGenres.text = movie.genres.joinToString(", ")
 
         binding.btnWatchlist.setOnClickListener {
@@ -102,6 +102,13 @@ class DetailActivity : AppCompatActivity() {
         }
             }
 
+    fun formatRuntime(minutes: Int): String {
+        val hours = minutes / 60
+        val mins = minutes % 60
+        val secs = 0
+
+        return String.format("%02d:%02d:%02d", hours, mins, secs)
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         return true
